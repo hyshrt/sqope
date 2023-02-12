@@ -1,10 +1,3 @@
-desc "This task is called by the Heroku scheduler add-on"
-task :test_scheduler => :environment do
-  puts "scheduler test"
-  puts "it works."
-end
-
-
 task :change_to_offerring => :environment do
   start_datetime_past_program = Program.release_opened.start_datetime_past
     start_datetime_past_program.update(program_state: 2)
