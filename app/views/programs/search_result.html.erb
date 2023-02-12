@@ -12,11 +12,11 @@
                 <%= link_to search.search_name, search_programs_path(name: "", area_ids: search.area_id, target_ids: search.target_id, field_ids: search.field_id) %>
               </div>
               <ul class="list-group list-group-flush text-center">
-                <% if search.area&.target_area.present? %>
-                  <li class="list-group-item"><%= search.area&.target_area %></li>
+                <% if search.area&.area_name.present? %>
+                  <li class="list-group-item"><%= search.area&.area_name %></li>
                 <% end %>
-                <% if search.target&.target_status.present? %>
-                  <li class="list-group-item"><%= search.target&.target_status %></li>
+                <% if search.target&.group_name.present? %>
+                  <li class="list-group-item"><%= search.target&.group_name %></li>
                 <% end %>
                 <% if search.field&.field_name.present? %>
                   <li class="list-group-item"><%= search.field&.field_name %></li>
