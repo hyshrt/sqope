@@ -1,0 +1,58 @@
+<div class="container">
+  <div class="row">
+    <div class="col-4 mx-auto padding-top-80">
+      <%= render partial: 'layouts/flash' %>
+      <h3 class="border-bottom border-dark border-2 mb-5 pb-4 d-flex justify-content-center">作成済の全助成プログラム</h3>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-9 mx-auto">
+      <div class="mb-3 d-flex justify-content-end">
+        <small>（全<%= @program_count %>件）</small>
+      </div>
+      <% @funder_programs.each do |program| %>
+        <div class="card mb-3 mx-3 w-100">
+          <div class="card-header text-center">
+            <div class="d-flex justify-content-between">
+              <div>
+                <% if program.release_and_status == 0 %>
+                  <div class="badge bg-warning">
+                    下書き
+                  </div>
+                <% elsif program.release_and_status == 1 %>
+                  <div class="badge bg-danger">
+                    公開
+                  </div>
+                <% else program.release_and_status == 2 %>
+                  <div class="badge bg-dark">
+                    募集終了
+                  </div>
+                <% end %>
+                <%= program.program_name %>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">
+                助成額：<%= program.grant_amount %>
+            </h5>
+            <h5 class="card-title">
+              募集期間：<%= program.start_datetime.strftime("%Y/%m/%d %H:%M") %> 〜 <%= program.end_datetime.strftime("%Y/%m/%d %H:%M") %>
+            </h5>
+            <p class="card-text"><%= program.overview.truncate(200) %></p>
+          </div>
+          <div class="card-footer text-muted d-flex justify-content-end">
+            <%= link_to "編集", edit_program_path(program), class: "btn btn-primary mx-3" %>
+            <%= link_to "削除", program_path(program), class: "btn btn-outline-danger mx-3", method: :delete, data: { confirm: "本当に削除して良いですか？" } %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <div class="d-flex justify-content-center">
+      <%= paginate @funder_programs %>
+    </div>
+  </div>
+</div>

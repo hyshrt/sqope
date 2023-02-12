@@ -1,0 +1,154 @@
+<% breadcrumb :program_show, @program %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-8 mx-auto padding-top-80">
+      <h3 class="border-bottom border-warning border-2 mb-5 pb-4 d-flex justify-content-center"><%= @program.program_name %></h3>
+      <div class="d-flex justify-content-center">
+        <% if @program.program_logo.present? %>
+          <%= image_tag @program.program_logo.url, size: '200x100' %>
+        <% else %>
+          <%= image_tag "/images/logo.png", size: "300x100" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row d-flex justify-content-around">
+
+    <div class="col-8">
+      <div class="card mb-4">
+        <h5 class="card-header">助成額</h5>
+        <div class="card-body">
+          <p class="card-text"><%= @program.grant_amount %></p>
+        </div>
+      </div>
+      <div class="card mb-4">
+        <h5 class="card-header">概要</h5>
+        <div class="card-body">
+          <p class="card-text"><%= simple_format(@program.overview, sanitize: true) %></p>
+        </div>
+      </div>
+      <div class="card mb-4">
+        <h5 class="card-header">募集期間</h5>
+        <div class="card-body">
+          <p class="card-text"><%= @program.start_datetime.strftime("%Y/%m/%d %H:%M") %> 〜 <%= @program.end_datetime.strftime("%Y/%m/%d %H:%M") %></p>
+        </div>
+      </div>
+      <div class="card mb-4">
+        <h5 class="card-header">助成プログラムURL</h5>
+        <div class="card-body">
+          <p class="card-text"><%= raw Rinku.auto_link(@program.url, :all, 'target="_blank"') %></p>
+        </div>
+      </div>
+      <div class="card mb-4">
+        <h5 class="card-header">助成決定時期</h5>
+        <div class="card-body">
+          <p class="card-text"><%= @program.determining_time %></p>
+        </div>
+      </div>
+      <div class="card mb-4">
+        <h5 class="card-header">助成事業実施期間</h5>
+        <div class="card-body">
+          <p class="card-text"><%= @program.implementation_period %></p>
+        </div>
+      </div>
+      <div class="card mb-4">
+        <h5 class="card-header">助成金支払方法</h5>
+        <div class="card-body">
+          <p class="card-text"><%= @program.payment_method %></p>
+        </div>
+      </div>
+      <div class="card mb-4">
+        <h5 class="card-header">選考方法</h5>
+        <div class="card-body">
+          <p class="card-text"><%= @program.selection_method %></p>
+        </div>
+      </div>
+      <div class="card mb-4">
+        <h5 class="card-header">助成金使用用途</h5>
+        <div class="card-body">
+          <p class="card-text"><%= @program.use %></p>
+        </div>
+      </div>
+      <div class="card mb-4">
+        <h5 class="card-header">自己負担の要否</h5>
+        <div class="card-body">
+          <p class="card-text"><%= @program.self_pay %></p>
+        </div>
+      </div>
+      <div class="card mb-4">
+        <h5 class="card-header">募集要項ダウンロードURL</h5>
+        <div class="card-body">
+          <p class="card-text"><%= raw Rinku.auto_link(@program.essential_point, :all, 'target="_blank"') %></p>
+        </div>
+      </div>
+      <div class="card mb-4">
+        <h5 class="card-header"><%= @funder.name %>からのメッセージ</h5>
+        <div class="card-body">
+          <p class="card-text"><%= simple_format(@program.message, sanitize: true) %></p>
+        </div>
+      </div>
+      <div class="card mb-4">
+        <h5 class="card-header">対象地域</h5>
+        <div class="card-body">
+          <p class="card-text"><%= @program.areas.pluck(:area_name).join(' , ') %></p>
+        </div>
+      </div>
+      <div class="card mb-4">
+        <h5 class="card-header">対象法人格</h5>
+        <div class="card-body">
+          <p class="card-text"><%= @program.targets.pluck(:group_name).join(' , ') %></p>
+        </div>
+      </div>
+      <div class="card mb-4">
+        <h5 class="card-header">分野</h5>
+        <div class="card-body">
+          <p class="card-text"><%= @program.fields.pluck(:field_name).join(' , ') %></p>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center mb-5">
+        <%= link_to "助成プログラム一覧へ戻る", search_programs_path, class: "btn btn-primary" %>
+      </div>
+    </div>
+
+
+
+    <div class="col-3 bg-light">
+      <div class="sticky-top padding-top-80">
+        <div class="card mb-4">
+          <% if @funder.logo.present? %>
+            <%= image_tag @funder.logo.url, size: '200x100', class: "card-img-top" %>
+          <% else %>
+            <%= image_tag "/images/logo.png", size: "300x100", class: "card-img-top" %>
+          <% end %>
+          <%# <%= image_tag @funder.logo.url, class: "card-img-top" %>
+          <div class="card-body">
+            <h5 class="card-title mb-4"><%= @funder.name %></h5>
+            <hr>
+            <p class="card-text">〒<%= @funder.postal_code %> <%= @funder.address_building %></p>
+            <p class="card-text">代表者：<%= @funder.representative %></p>
+            <p class="card-text">URL：<%= raw Rinku.auto_link(@funder.url, :all, 'target="_blank"') %></p>
+          </div>
+        </div>
+        <hr>
+        <div class="mt-4 d-flex justify-content-center">
+          <% if user_signed_in? %>
+            <% if @program.interested?(current_user) %>
+              <%= link_to program_interests_path(@program), method: :delete do %>
+                <i class="fas fa-minus text-danger btn btn-outline-danger"> 気になるを削除</i>
+              <% end %>
+            <% else %>
+              <%= link_to program_interests_path(@program), method: :post do %>
+                <i class="fas fa-plus btn btn-primary"> 気になる</i>
+              <% end %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

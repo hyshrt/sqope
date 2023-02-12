@@ -1,0 +1,5 @@
+<p>Welcome <%= @name %>!</p>
+
+<p>You can confirm your account email through the link below:</p>
+
+<p><%= link_to '助成団体アカウントの本登録', controller: 'funders/confirmations', action: 'create', confirmation_token: @token %></p>

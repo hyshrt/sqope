@@ -1,0 +1,92 @@
+<div class="container">
+  <div class="row">
+    <div class="col-4 mx-auto padding-top-80">
+      <h3 class="border-bottom border-dark border-2 mb-5 pb-4 d-flex justify-content-center">助成団体マイページ</h3>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-5 mx-auto">
+
+      <div class="d-flex justify-content-center py-3">
+        <div class="col d-flex justify-content-center">
+          <div class="col-2 d-flex justify-content-center align-items-center">
+            <i class="fas fa-sticky-note fa-3x"></i>
+          </div>
+          <div class="col-5 d-flex align-items-center justify-content-center">
+              <label for="funder-name">作成済の全助成プログラム</label>
+          </div>
+        <div class="col-2 d-flex align-items-center justify-content-center">
+          <%= link_to funders_mypage_programs_path do %>
+            <i class="fas fa-chevron-right fa-2x"></i>
+          <% end %>
+        </div>
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="d-flex justify-content-center py-3">
+        <div class="col d-flex justify-content-center">
+          <div class="col-2 d-flex justify-content-center align-items-center">
+            <i class="fas fa-user fa-3x"></i>
+          </div>
+          <div class="col-5 d-flex align-items-center justify-content-center">
+              <label for="funder-name">団体情報の編集</label>
+          </div>
+        <div class="col-2 d-flex align-items-center justify-content-center">
+          <%= link_to funders_mypage_edit_path do %>
+            <i class="fas fa-chevron-right fa-2x"></i>
+          <% end %>
+        </div>
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="d-flex justify-content-center py-3">
+        <div class="col d-flex justify-content-center">
+          <div class="col-2 d-flex justify-content-center align-items-center">
+            <i class="fas fa-lock fa-3x"></i>
+          </div>
+          <div class="col-5 d-flex align-items-center justify-content-center">
+              <label for="funder-name">パスワードの変更</label>
+          </div>
+        <div class="col-2 d-flex align-items-center justify-content-center">
+          <%= link_to funders_mypage_edit_password_path do %>
+            <i class="fas fa-chevron-right fa-2x"></i>
+          <% end %>
+        </div>
+        </div>
+      </div>
+
+      <hr>
+
+       <div class="d-flex justify-content-center py-3">
+        <div class="col d-flex justify-content-center">
+          <div class="col-2 d-flex justify-content-center align-items-center">
+            <i class="fas fa-sign-out-alt fa-3x"></i>
+          </div>
+          <div class="col-5 d-flex align-items-center justify-content-center">
+              <label for="funder-name">ログアウト</label>
+          </div>
+        <div class="col-2 d-flex align-items-center justify-content-center">
+          <%= link_to destroy_funder_session_path, method: :get do %>
+            <i class="fas fa-chevron-right fa-2x"></i>
+          <% end %>
+        </div>
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="d-flex justify-content-center border border-danger mt-5">
+        <div>
+          <p class="text-danger">退会をご希望の場合は、お手数ですが下記までお問い合わせください。<br>info@njin-base.com</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

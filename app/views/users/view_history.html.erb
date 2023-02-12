@@ -1,0 +1,52 @@
+<div class="container">
+  <div class="row">
+    <div class="col-4 mx-auto padding-top-80">
+      <h3 class="border-bottom border-warning border-2 mb-5 pb-4 d-flex justify-content-center">閲覧履歴</h3>
+    </div>
+  </div>
+</div>
+
+<p class="text-center">最新の閲覧履歴が10件表示されます</p>
+
+<div class="container">
+  <div class="row">
+    <div class="col-9 mx-auto">
+      <% @histories.reverse.each do |history| %>
+        <div class="card mb-3 mx-3 w-100">
+          <div class="card-header text-center">
+            <div class="d-flex justify-content-between">
+              <div>
+                <%= link_to history.program_name, program_path(history) %>
+              </div>
+              <div>
+                <% if user_signed_in? %>
+                  <% if history.interested?(current_user) %>
+                    <%= link_to program_interests_path(history), method: :delete do %>
+                      <i class="fa-solid fa-minus text-danger"> 気になるを削除</i>
+                    <% end %>
+                  <% else %>
+                    <%= link_to program_interests_path(history), method: :post do %>
+                      <i class="fa-solid fa-plus"> 気になる</i>
+                    <% end %>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">
+                助成額：<%= history.grant_amount %>円
+            </h5>
+            <h5 class="card-title">
+              募集期間：<%= history.start_datetime.strftime("%Y/%m/%d %H:%M") %> 〜 <%= history.end_datetime.strftime("%Y/%m/%d %H:%M") %>
+            </h5>
+            <p class="card-text"><%= history.overview.truncate(100) %></p>
+          </div>
+          <div class="card-footer text-muted">
+            助成団体名：<%= history.funder.name %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

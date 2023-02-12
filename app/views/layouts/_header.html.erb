@@ -1,0 +1,55 @@
+<header>
+  <nav class="navbar navbar-dark bg-light fixed-top">
+    <div class="container-fluid">
+       <%= link_to root_path do %>
+      <%= image_tag "/images/logo.png", size: "150x50", alt: "アイコン" %>
+    <% end %>
+      <ul class="nav justify-content-end">
+        <% if user_signed_in? %>
+          <li class="nav-item">
+            <%= link_to users_mypage_interest_path do %>
+              <i class="fas fa-paperclip nav-link "> 気になるリスト</i>
+            <% end %>
+          </li>
+          <li class="nav-item">
+            <%= link_to users_mypage_history_path do %>
+              <i class="fas fa-clock nav-link "> 閲覧履歴</i>
+            <% end %>
+          </li>
+          <li class="nav-item">
+            <%= link_to users_mypage_path do %>
+              <i class="fas fa-user nav-link "> マイページ</i>
+            <% end %>
+          </li>
+        <% elsif funder_signed_in? %>
+          <li class="nav-item">
+            <%= link_to new_program_path do %>
+              <i class="fas fa-plus nav-link text-dark"> 新規助成プログラム登録</i>
+            <% end %>
+          </li>
+          <li class="nav-item">
+            <%= link_to funders_mypage_path do %>
+              <i class="fas fa-building nav-link text-dark"> 助成団体マイページ</i>
+            <% end %>
+          </li>
+        <% else %>
+          <li class="nav-item">
+            <%= link_to new_user_registration_path do %>
+              <i class="fas fa-user-plus nav-link"> 新規登録</i>
+            <% end %>
+          </li>
+          <li class="nav-item">
+            <%= link_to user_session_path do %>
+              <i class="fas fa-sign-in-alt nav-link"> ログイン</i>
+            <% end %>
+          </li>
+          <li class="nav-item border-start border-secondary border-3">
+            <%= link_to new_funder_session_path do %>
+              <i class="fas fa-building nav-link text-dark"> 助成団体の方</i>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </nav>
+</header>

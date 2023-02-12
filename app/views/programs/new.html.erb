@@ -1,0 +1,143 @@
+<div class="container">
+  <div class="row">
+    <div class="col-4 mx-auto padding-top-80">
+      <h3 class="border-bottom border-warning border-2 mb-5 pb-4 d-flex justify-content-center">新規助成プログラム登録</h3>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-6">
+      <%= form_with model: @program do |f| %>
+        <div class="mb-3">
+          <%= f.label :program_name, "助成プログラム名", class: "form-label" %>
+          <%= f.text_field :program_name , class:"form-control" %>
+        </div>
+
+        <div class="mb-3 d-flex justify-content-between align-items-middle">
+          <div class="col-5">
+            <%= f.label :start_datetime, "募集開始日", class: "form-label" %>
+            <%= f.datetime_field :start_datetime, class: "form-control" %>
+          </div>
+          <div class="col-1 text-center d-flex justify-content-center align-items-center">
+            <p>〜</p>
+          </div>
+          <div class="col-5">
+            <%= f.label :end_datetime, "募集終了日", class: "form-label" %>
+            <%= f.datetime_field :end_datetime, class: "form-control" %>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :grant_amount, "助成額", class: "form-label" %>
+          <%= f.text_field :grant_amount, class: "form-control" %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :overview, "助成プログラム概要", class: "form-label" %>
+          <%= f.text_area :overview, class: "form-control", size: "30x10"  %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :url, "助成プログラムURL", class: "form-label" %>
+          <%= f.text_field :url, class: "form-control" %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :determining_time, "助成決定時期", class: "form-label" %>
+          <%= f.text_field :determining_time, class: "form-control" %>
+        </div>
+       
+        <div class="mb-3">
+          <%= f.label :implementation_period, "助成事業実施機関", class: "form-label" %>
+          <%= f.text_field :implementation_period, class: "form-control" %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :payment_method, "助成金支払方法", class: "form-label" %>
+          <%= f.text_field :payment_method, class: "form-control" %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :selection_method, "選考方法", class: "form-label" %>
+          <%= f.text_field :selection_method, class: "form-control" %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :use, "助成金使用使途", class: "form-label" %>
+          <%= f.text_field :use, class: "form-control" %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :self_pay, "自己負担の要否", class: "form-label" %>
+          <%= f.text_field :self_pay, class: "form-control" %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :essential_point, "募集要項ダウンロードURL", class: "form-label" %>
+          <%= f.text_field :essential_point, class: "form-control" %>
+        </div>
+
+         <div class="mb-3">
+          <%= f.label :message, "助成団体からのメッセージ", class: "form-label" %>
+          <%= f.text_area :message, class: "form-control", size: "30x5"  %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :program_logo, "助成プログラムロゴ", class: "form-label", for: "formFile" %>
+          <%= f.file_field :program_logo, class: "form-control" %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :area, "対象地域", class: "form-label" %><br>
+          <%= f.collection_check_boxes(:area_ids, Area.all, :id, :area_name, include_hidden: false) do |b| %>
+            <label class="form-label">
+              <%= b.check_box class: "form-check-input mx-1" do %>
+                <%= b.check_box + b.text %>
+              <% end %>
+                <%= b.label {b.text} %>
+            </label>
+          <% end %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :target, "対象法人格", class: "form-label" %><br>
+          <%= f.collection_check_boxes(:target_ids, Target.all, :id, :group_name, include_hidden: false) do |b| %>
+            <label class="form-label">
+              <%= b.check_box class: "form-check-input mx-1" do %>
+                <%= b.check_box + b.text %>
+              <% end %>
+                <%= b.label {b.text} %>
+            </label>
+          <% end %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :field, "助成分野", class: "form-label" %><br>
+          <%= f.collection_check_boxes(:field_ids, Field.all, :id, :field_name, include_hidden: false) do |b| %>
+            <label class="form-label">
+              <%= b.check_box class: "form-check-input mx-1" do %>
+                <%= b.check_box + b.text %>
+              <% end %>
+                <%= b.label {b.text} %>
+            </label>
+          <% end %>
+        </div>
+
+        <hr>
+        <div class="my-5 d-flex justify-content-center">
+          <div class="col-4">
+            <%= f.select :release_and_status, [ ["下書き", 0], ["公開", 1] ], {}, class: "form-select" %>
+          </div>
+        </div>
+        <div class="actions d-flex justify-content-center mb-5">
+          <%= f.submit "助成プログラム新規作成", class: "btn btn-warning w-50" %>
+        </div>
+
+      <% end %>
+    </div>
+  </div>
+</div>
+
+

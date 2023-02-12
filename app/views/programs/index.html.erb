@@ -1,0 +1,101 @@
+<div class="mainvisual"></div>
+<div class="top_form my-5 w-50 shadow mx-auto">
+  <h5 class="top_form--title text-center mb-4 pt-4">条件で検索</h5>
+  <div class="container">
+    <%= form_with url: search_programs_path, local: true, method: :get, class: "row w-100 mx-auto" do |f| %>
+      <%= f.collection_select :area_ids, Area.all, :id, :area_name, { include_blank: "対象地域"} , class: "form-select col mx-3" %>
+      <%= f.collection_select :target_ids, Target.all, :id, :group_name, { include_blank: "対象団体"}, class: "form-select col mx-3" %>
+      <%= f.collection_select :field_ids, Field.all, :id, :field_name, { include_blank: "分野"}, class: "form-select col mx-3" %>
+      <%= f.hidden_field :name %>
+      <div class="d-flex justify-content-center">
+        <%= f.submit "検索", class: "btn btn-primary w-50  my-4" %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row relative">
+    <div class="col-9 pt-4">
+      <h4 class="border-start border-warning border-5 mb-4 ps-2">新着助成情報</h4>
+      <% @programs.each do |program| %>
+        <div class="card mb-4">
+          <div class="card-header">
+            <div>
+              <% if program.program_state == 1 %>
+                <div class="badge bg-danger">
+                  新着
+                </div>
+              <% elsif program.program_state == 2 %>
+                <div class="badge bg-primary">
+                  募集中
+                </div>
+              <% else program.program_state == 3 %>
+                <div class="badge bg-warning">
+                  締切間近
+                </div>
+              <% end %>
+              <%= link_to program.program_name, program_path(program) %>
+            </div>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">
+              助成額：<%= program.grant_amount %>円
+            </h5>
+            <h5 class="card-title">
+              募集期間：<%= program.start_datetime.strftime("%Y/%m/%d %H:%M") %> 〜 <%= program.end_datetime.strftime("%Y/%m/%d %H:%M") %>
+            </h5>
+            <p class="card-text"><%= program.overview.truncate(100) %></p>
+          </div>
+          <div class="card-footer text-muted">
+            助成団体名：<%= program.funder.name %>
+          </div>
+        </div>
+      <% end %>
+      <div class="d-flex justify-content-center">
+        <a href="http://127.0.0.1:3000/programs/search" class="btn btn-secondary mb-5 w-25">すべての助成情報を見る</a>
+      </div>
+      <h4 class="border-start border-warning border-5 mb-4 ps-2">お知らせ</h4>
+      <div class="">
+        <p>非営利活動向け助成情報サイト「SQOPE（スコープ）」がオープンしました！</p>
+      </div>
+    </div>
+    <div class="col-3">
+      <div class="sticky-top padding-top-80">
+        <div class="mb-4">
+          <h5 class="border-start border-primary border-5 ps-2">助成団体名で検索</h5>
+          <%= form_with url: search_programs_path, local: true, method: :get do |f| %>
+            <div class="d-flex justify-content-center">
+              <%= f.text_field :name, placeholder: "団体名を入力", class: "w-100 form-control mb-3" %>
+            </div>
+            <div class="d-flex justify-content-center">
+              <%= f.submit "検索", class: "btn btn-primary w-50  mb-3" %>
+            </div>
+          <% end %>
+        </div>
+        <hr>
+        <div class="mt-4">
+          <h5 class="border-start border-primary border-5 ps-2">条件で検索</h5>
+          <%= form_with url: search_programs_path, local: true, method: :get, class: "mx-auto" do |f| %>
+            <%= f.collection_select :area_ids, Area.all, :id, :area_name, { include_blank: "-- 対象地域 --"} , class: "form-select mb-3" %>
+            <%= f.collection_select :target_ids, Target.all, :id, :group_name, { include_blank: "-- 対象団体 --"}, class: "form-select mb-3" %>
+            <%= f.collection_select :field_ids, Field.all, :id, :field_name, { include_blank: "-- 分野 --"}, class: "form-select mb-3" %>
+            <%= f.hidden_field :name %>
+            <div class="d-flex justify-content-center">
+              <%= f.submit "検索", class: "btn btn-primary w-50  mb-3" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,280 @@
+<div class="container">
+  <div class="row">
+    <div class="col-4 mx-auto padding-top-80">
+      <h3 class="border-bottom border-dark border-2 mb-5 pb-4 d-flex justify-content-center">助成団体アカウント登録</h3>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-5">
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+        <div class="form-group row mb-3">
+
+          <%= f.label :name, "", class: "col-md-5 col-form-label text-md-left" do %>
+            団体名
+            <span class="ml-1">
+              <span class="text-danger"> *必須</span>
+            </span>
+          <% end %>
+
+          <div class="col-md-7">
+            <%=
+              f.text_field :name,
+              class: "form-control #{"is-invalid" if resource.errors.messages[:name].present? }",
+              autofocus: "true",
+              required: "",
+              autocomplete: "name",
+              placeholder: "法人格も含めて入力してください"
+            %>
+
+            <% if resource.errors.messages[:name].present? %>
+              <span class="text-danger">
+                <strong><%= resource.errors.full_messages_for(:name).first %></strong>
+              </span>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="form-group row mb-3">
+
+          <%= f.label :postal_code, "", class: "col-md-5 col-form-label text-md-left" do %>
+            郵便番号
+            <span class="ml-1">
+              <span class="text-danger"> *必須</span>
+            </span>
+          <% end %>
+
+          <div class="col-md-7">
+            <%=
+              f.text_field :postal_code,
+              class: "form-control #{"is-invalid" if resource.errors.messages[:postal_code].present? } ",
+              autofocus: "true",
+              required: "",
+              autocomplete: "postal_code",
+              placeholder: "半角　ハイフンを含めてください"
+            %>
+
+            <% if resource.errors.messages[:postal_code].present? %>
+              <span class="text-danger">
+                <strong><%= resource.errors.full_messages_for(:postal_code).first %></strong>
+              </span>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="form-group row mb-3">
+
+          <%= f.label :address, "", class: "col-md-5 col-form-label text-md-left" do %>
+            所在地（番地まで）
+            <span class="ml-1">
+              <span class="text-danger"> *必須</span>
+            </span>
+          <% end %>
+
+          <div class="col-md-7">
+            <%=
+              f.text_field :address,
+              class: "form-control #{"is-invalid" if resource.errors.messages[:address].present? } ",
+              autofocus: "true",
+              required: "",
+              autocomplete: "address",
+              placeholder: "例：大阪府大阪市中央区1-1"
+            %>
+
+            <% if resource.errors.messages[:address].present? %>
+              <span class="text-danger">
+                <strong><%= resource.errors.full_messages_for(:address).first %></strong>
+              </span>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="form-group row mb-3">
+
+          <%= f.label :address_building, "", class: "col-md-5 col-form-label text-md-left" do %>
+            所在地（ビル・号室）
+            <span class="ml-1">
+              <span class="text-danger"></span>
+            </span>
+          <% end %>
+
+          <div class="col-md-7">
+            <%=
+              f.text_field :address_building,
+              class: "form-control #{"is-invalid" if resource.errors.messages[:address_building].present? } ",
+              autofocus: "true",
+              required: "",
+              autocomplete: "address_building",
+              placeholder: "例：ABCビル8F"
+            %>
+
+            <% if resource.errors.messages[:address_building].present? %>
+              <span class="text-danger">
+                <strong><%= resource.errors.full_messages_for(:address_building).first %></strong>
+              </span>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="form-group row mb-3">
+
+          <%= f.label :tel, "", class: "col-md-5 col-form-label text-md-left" do %>
+            電話番号
+            <span class="ml-1">
+              <span class="text-danger"> *必須</span>
+            </span>
+          <% end %>
+
+          <div class="col-md-7">
+            <%=
+              f.text_field :tel,
+              class: "form-control #{"is-invalid" if resource.errors.messages[:tel].present? } ",
+              autofocus: "true",
+              required: "",
+              autocomplete: "tel",
+              placeholder: "半角　ハイフンを含めてください"
+            %>
+
+            <% if resource.errors.messages[:tel].present? %>
+              <span class="text-danger">
+                <strong><%= resource.errors.full_messages_for(:tel).first %></strong>
+              </span>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="form-group row mb-3">
+
+          <%= f.label :url, "", class: "col-md-5 col-form-label text-md-left" do %>
+            団体ホームページURL
+            <span class="ml-1">
+              <span class="text-danger"></span>
+            </span>
+          <% end %>
+
+          <div class="col-md-7">
+            <%=
+              f.text_field :url,
+              class: "form-control #{"is-invalid" if resource.errors.messages[:url].present? } ",
+              autofocus: "true",
+              required: "",
+              autocomplete: "url",
+              placeholder: ""
+            %>
+
+            <% if resource.errors.messages[:url].present? %>
+              <span class="text-danger">
+                <strong><%= resource.errors.full_messages_for(:url).first %></strong>
+              </span>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="form-group row mb-3">
+
+          <%= f.label :representative, "", class: "col-md-5 col-form-label text-md-left" do %>
+            代表者名
+            <span class="ml-1">
+              <span class="text-danger"> *必須</span>
+            </span>
+          <% end %>
+
+          <div class="col-md-7">
+            <%=
+              f.text_field :representative,
+              class: "form-control #{"is-invalid" if resource.errors.messages[:representative].present? } ",
+              autofocus: "true",
+              required: "",
+              autocomplete: "representative",
+              placeholder: "役職名を含めて入力"
+            %>
+
+            <% if resource.errors.messages[:representative].present? %>
+              <span class="text-danger">
+                <strong><%= resource.errors.full_messages_for(:representative).first %></strong>
+              </span>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="form-group row mb-3">
+          <%= f.label :email, "", class: "col-md-5 col-form-label text-md-left" do %>
+          メールアドレス
+            <span class="ml-1">
+              <span class="text-danger"> *必須</span>
+            </span>
+          <% end %>
+
+          <div class="col-md-7">
+            <%=
+              f.email_field :email,
+              class: "form-control #{"is-invalid" if resource.errors.messages[:email].present? } ",
+              autofocus: "true",
+              required: "",
+              autocomplete: "email",
+              placeholder: "メールアドレス"
+            %>
+
+            <% if resource.errors.messages[:email].present? %>
+              <span class="text-danger">
+                <strong><%= resource.errors.full_messages_for(:email).first %></strong>
+              </span>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="form-group row mb-3 d-flex justify-content-between">
+          <div class="col-3">
+            <%= f.label :logo, "団体ロゴ", class: "form-label text-md-left" %>
+          </div>
+          <div class="col-7">
+          <%= f.file_field :logo, class: "form-control" %>
+          </div>
+        </div>
+
+        <div class="form-group row mb-3">
+          <%= f.label :password, "", class: "col-md-5 col-form-label text-md-left" do %>
+          パスワード
+            <span class="ml-1">
+              <span class="text-danger"> *必須</span>
+            </span>
+          <% end %>
+
+          <div class="col-md-7">
+            <%=
+              f.password_field :password,
+              class: "form-control #{ "is-invalid" if resource.errors.messages[:password].present? }",
+              autofocus: "true"
+            %>
+            <% if resource.errors.messages[:password].present? %>
+            <span class="text-danger">
+              <strong><%= resource.errors.full_messages_for(:password).first %></strong>
+            </span>
+            <% end %>
+            </div>
+          </div>
+
+        <div class="form-group row mb-3">
+          <%= f.label :password_confirmation, "", class: "col-md-5 col-form-label text-md-left" do %>
+          パスワード（確認用）
+          <% end %>
+          <div class="col-md-7">
+            <%=
+              f.password_field :password_confirmation,
+              class: "form-control",
+              autocomplete: "new-password"
+            %>
+          </div>
+        </div>
+
+        <div class="form-group d-flex justify-content-center mb-5">
+          <button type="submit" class="btn btn-secondary mt-3">
+            団体登録する
+          </button>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

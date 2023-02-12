@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="row">
+    <div class="col-4 mx-auto padding-top-80">
+      <h3 class="border-bottom border-warning border-2 mb-5 pb-4 d-flex justify-content-center">検索条件保存リスト</h3>
+    </div>
+  </div>
+</div>
+<p class="text-center pb-3">最新の10件が保存・閲覧可能です</p>
+<div class="container">
+  <div class="row">
+    <div class="col-12 mx-auto">
+      <div class="d-flex justify-content-center flex-wrap">
+        <% @searches.each do |search| %>
+          <div class="card mb-3 mx-2 w-25">
+            <div class="card-header d-flex justify-content-between">
+              <div>
+                <%= link_to search.search_name, search_programs_path(name: "", area_ids: search.area_id, target_ids: search.target_id, field_ids: search.field_id) %>
+              </div>
+              <div>
+                <%= link_to "削除", search_parameter_safe_path(search), method: :delete, class: "badge bg-danger" %>
+              </div>
+            </div>
+            <ul class="list-group list-group-flush text-center">
+              <% if search.area&.target_area.present? %>
+                <li class="list-group-item"><%= search.area&.area_name %></li>
+              <% end %>
+              <% if search.target&.target_status.present? %>
+                <li class="list-group-item"><%= search.target&.group_name %></li>
+              <% end %>
+              <% if search.field&.field_name.present? %>
+                <li class="list-group-item"><%= search.field&.field_name %></li>
+              <% end%>
+            </ul>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

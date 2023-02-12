@@ -1,0 +1,138 @@
+<% breadcrumb :program_search_result %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-2">
+      <div class="sticky-top padding-top-80">
+        <h5 class="border-start border-primary border-5 mb-4 ps-2">保存した検索条件<span><small>（最新3件）</small></span></h5>
+        <% if user_signed_in? %>
+          <% @searches.each do |search| %>
+            <div class="card mb-3">
+              <div class="card-header text-center">
+                <%= link_to search.search_name, search_programs_path(name: "", area_ids: search.area_id, target_ids: search.target_id, field_ids: search.field_id) %>
+              </div>
+              <ul class="list-group list-group-flush text-center">
+                <% if search.area&.target_area.present? %>
+                  <li class="list-group-item"><%= search.area&.target_area %></li>
+                <% end %>
+                <% if search.target&.target_status.present? %>
+                  <li class="list-group-item"><%= search.target&.target_status %></li>
+                <% end %>
+                <% if search.field&.field_name.present? %>
+                  <li class="list-group-item"><%= search.field&.field_name %></li>
+                <% end%>
+              </ul>
+            </div>
+          <% end %>
+          <div class="d-flex justify-content-center">
+            <a href="/search_parameter_saves" class="btn btn-primary">すべての保存検索条件</a>
+          </div>
+        <hr>
+        <div class="mt-4">
+          <h5 class="border-start border-primary border-5 ps-2">検索条件を保存する</h5>
+          <%= form_with url: new_search_parameter_safe_path, local: true, method: :get, class: "d-flex justify-content-center" do |f| %>
+            <%= f.hidden_field :area_ids, value: params[:area_ids] %>
+            <%= f.hidden_field :target_ids, value: params[:target_ids] %>
+            <%= f.hidden_field :field_ids, value: params[:field_ids] %>
+            <%= f.submit "検索条件を保存する", class: "btn btn-primary mt-3"%>
+          <% end %>
+        </div>
+        <% else %>
+          <p>ユーザー登録すると検索条件を保存できます</p>
+          <div class="d-flex justify-content-center">
+            <a href="/users/sign_up" class="btn btn-primary">ユーザー登録する</a>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="col-7">
+      <div class="padding-top-80">
+        <h3 class="border-start border-warning border-5 mb-4 ps-2">検索結果<small>（全<%= @program_count %>件）</small></h3>
+          <% @programs.each do |program| %>
+          <div class="card mb-4">
+            <div class="card-header">
+              <div class="d-flex justify-content-between">
+                <div>
+                  <% if program.program_state == 1 %>
+                    <div class="badge bg-danger">
+                      新着
+                    </div>
+                  <% elsif program.program_state == 2 %>
+                    <div class="badge bg-primary">
+                      募集中
+                    </div>
+                  <% else program.program_state == 3 %>
+                    <div class="badge bg-warning">
+                      締切間近
+                    </div>
+                  <% end %>
+                  <%= link_to program.program_name, program_path(program) %>
+                </div>
+                <div>
+                  <% if user_signed_in? %>
+                    <% if program.interested?(current_user) %>
+                      <%= link_to program_interests_path(program), method: :delete do %>
+                        <i class="fa-solid fa-minus text-danger"> 気になるを削除</i>
+                      <% end %>
+                    <% else %>
+                      <%= link_to program_interests_path(program), method: :post do %>
+                        <i class="fa-solid fa-plus"> 気になる</i>
+                      <% end %>
+                    <% end %>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">
+                助成額：<%= program.grant_amount %>
+              </h5>
+              <h5 class="card-title">
+                募集期間：<%= program.start_datetime.strftime("%Y/%m/%d %H:%M") %> 〜 <%= program.end_datetime.strftime("%Y/%m/%d %H:%M") %>
+              </h5>
+              <p class="card-text"><%= program.overview.truncate(100) %></p>
+            </div>
+              <div class="card-footer text-muted">
+                助成団体名：<%= program.funder.name %>
+              </div>
+          </div>
+        <% end %>
+        <div class="d-flex justify-content-center">
+          <%= paginate @programs %>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-3">
+      <div class="sticky-top padding-top-80">
+        <div class="mb-4">
+          <h5 class="border-start border-primary border-5 ps-2">助成団体名で検索</h5>
+          <%= form_with url: search_programs_path, local: true, method: :get do |f| %>
+            <div class="d-flex justify-content-center">
+              <%= f.text_field :name, placeholder: "団体名を入力" ,value: params[:name] , class: "w-100 form-control mb-3" %>
+            </div>
+            <div class="d-flex justify-content-center">
+              <%= f.submit "検索", class: "btn btn-primary w-50  mb-3" %>
+            </div>
+          <% end %>
+        </div>
+        <hr>
+        <div class="mt-4">
+          <h5 class="border-start border-primary border-5 ps-2">条件で検索</h5>
+          <%= form_with url: search_programs_path, local: true, method: :get, class: "mx-auto" do |f| %>
+            <%= f.collection_select :area_ids, Area.all, :id, :area_name, { selected: params[:area_ids], include_blank: "-- 対象地域 --"} , class: "form-select mb-3" %>
+            <%= f.collection_select :target_ids, Target.all, :id, :group_name, { selected: params[:target_ids], include_blank: "-- 対象団体 --"}, class: "form-select mb-3" %>
+            <%= f.collection_select :field_ids, Field.all, :id, :field_name, { selected: params[:field_ids], include_blank: "-- 分野 --"}, class: "form-select mb-3" %>
+            <%= f.hidden_field :name %>
+            <div class="d-flex justify-content-center">
+              <%= f.submit "検索", class: "btn btn-primary w-50  mb-3" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

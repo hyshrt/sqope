@@ -1,0 +1,52 @@
+<div class="container">
+  <div class="row">
+    <div class="col-4 mx-auto padding-top-80">
+      <h3 class="border-bottom border-warning border-2 mb-5 pb-4 d-flex justify-content-center">気になるリスト</h3>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <div class= "d-flex justify-content-around">
+        <% @interests.reverse.each do |interest| %>
+          <div class="card mb-3">
+            <div class="card-header text-center">
+              <div class="d-flex justify-content-between">
+                <div>
+                  <%= link_to interest.program_name, program_path(interest) %>
+                </div>
+                <div>
+                  <% if user_signed_in? %>
+                    <% if interest.interested?(current_user) %>
+                      <%= link_to program_interests_path(interest), method: :delete do %>
+                        <i class="fa-solid fa-minus text-danger"> 気になるを削除</i>
+                      <% end %>
+                    <% else %>
+                      <%= link_to program_interests_path(interest), method: :post do %>
+                        <i class="fa-solid fa-plus"> 気になる</i>
+                      <% end %>
+                    <% end %>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">
+                  助成額：<%= interest.grant_amount %>円
+              </h5>
+              <h5 class="card-title">
+                募集期間：<%= interest.start_datetime.strftime("%Y/%m/%d %H:%M") %> 〜 <%= interest.end_datetime.strftime("%Y/%m/%d %H:%M") %>
+              </h5>
+              <p class="card-text"><%= interest.overview.truncate(100) %></p>
+            </div>
+            <div class="card-footer text-muted">
+              助成団体名：<%= interest.funder.name %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

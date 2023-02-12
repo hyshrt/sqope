@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SQOPE（スコープ）｜非営利活動向け助成情報サイト</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <script src="https://kit.fontawesome.com/7ab2f23221.js" crossorigin="anonymous"></script>
+  </head>
+
+  <body class="bg-tag">
+    <%= render partial: 'layouts/header' %>
+
+    <main class="margin-top-66 min-height">
+      <div class="container pt-2">
+        <% if notice %><p class="alert alert-warning"><%= notice %></div><% end %>
+        <% if alert %><p class="alert alert-danger"><%= alert %></p><% end %>
+        <%= breadcrumbs separator: " &rsaquo; " %>
+      </div>
+      <%= yield %>
+    </main>
+
+
+    <%= render partial: 'layouts/footer' %>
+  </body>
+</html>
