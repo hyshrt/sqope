@@ -1,0 +1,11 @@
+ja:
+  activerecord:
+    attributes:
+      search_parameter_safe:
+        search_name: 検索条件名
+    errors:
+      models:
+        search_parameter_safe:
+          attributes:
+            search_name:
+              blank: は必須入力です

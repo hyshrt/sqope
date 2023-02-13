@@ -13,7 +13,9 @@ class SearchParameterSavesController < ApplicationController
     @search_parameter_saves = SearchParameterSafe.new(safe_params)
     if @search_parameter_saves.save
       redirect_to programs_path
-    else
+    else  
+      @search_parameter_saves.valid?
+      @search_parameter_saves.errors.full_messages
       render :new
     end
   end

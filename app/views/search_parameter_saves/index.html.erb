@@ -21,10 +21,10 @@
               </div>
             </div>
             <ul class="list-group list-group-flush text-center">
-              <% if search.area&.target_area.present? %>
+              <% if search.area&.area_name.present? %>
                 <li class="list-group-item"><%= search.area&.area_name %></li>
               <% end %>
-              <% if search.target&.target_status.present? %>
+              <% if search.target&.group_name.present? %>
                 <li class="list-group-item"><%= search.target&.group_name %></li>
               <% end %>
               <% if search.field&.field_name.present? %>
