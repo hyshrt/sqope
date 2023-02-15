@@ -1,11 +1,52 @@
 ja:
   activerecord:
     attributes:
+      program:
+        program_name: 助成プログラム名
+        start_datetime: 募集開始日
+        end_datetime: 募集終了日
+        grant_amount: 助成額
+        overview: 助成プログラム概要
+        determining_time: 助成決定時期
+        implemention_period: 助成事業実施期間
+        payment_method: 助成金支払方法
+        selection_method: 選考方法
+        use: 助成金使用使途
+        self_pay: 自己負担の要否
+        message: メッセージ
       search_parameter_safe:
         search_name: 検索条件名
     errors:
       models:
+        program:
+          attributes:
+            program_name:
+              blank: は必須入力です
+            start_datetime:
+              blank: は必須入力です
+            end_datetime:
+              blank: は必須入力です
+            grant_amount:
+              blank: は必須入力です
+            overview:
+              blank: は必須入力です
+            determining_time:
+              blank: は必須入力です
+            implemention_period:
+              blank: は必須入力です
+            payment_method:
+              blank: は必須入力です
+            selection_method:
+              blank: は必須入力です
+            use:
+              blank: は必須入力です
+            self_pay:
+              blank: は必須入力です
+            message:
+              blank: は必須入力です
         search_parameter_safe:
           attributes:
             search_name:
               blank: は必須入力です
+            
+

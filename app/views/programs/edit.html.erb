@@ -11,32 +11,47 @@
     <div class="col-6">
       <%= form_with model: @program do |f| %>
         <div class="mb-3">
-          <%= f.label :program_name, "助成プログラム名", class: "form-label" %>
+          <%= f.label :program_name, "助成プログラム名", class: "form-label" %><span class="text-danger"> *必須</span>
           <%= f.text_field :program_name , class:"form-control" %>
+            <% if @program.errors[:program_name].any? %>
+              <p class="text-danger"><%= @program.errors.full_messages_for(:program_name).join %></p>
+            <% end %>
         </div>
 
         <div class="mb-3 d-flex justify-content-between align-items-middle">
           <div class="col-5">
-            <%= f.label :start_datetime, "募集開始日", class: "form-label" %>
+            <%= f.label :start_datetime, "募集開始日", class: "form-label" %><span class="text-danger"> *必須</span>
             <%= f.datetime_field :start_datetime, class: "form-control" %>
+              <% if @program.errors[:start_datetime].any? %>
+                <p class="text-danger"><%= @program.errors.full_messages_for(:start_datetime).join %></p>
+              <% end %>
           </div>
           <div class="col-1 text-center d-flex justify-content-center align-items-center">
             <p>〜</p>
           </div>
           <div class="col-5">
-            <%= f.label :end_datetime, "募集終了日", class: "form-label" %>
+            <%= f.label :end_datetime, "募集終了日", class: "form-label" %><span class="text-danger"> *必須</span>
             <%= f.datetime_field :end_datetime, class: "form-control" %>
+              <% if @program.errors[:end_datetime].any? %>
+                <p class="text-danger"><%= @program.errors.full_messages_for(:end_datetime).join %></p>
+              <% end %>
           </div>
         </div>
 
         <div class="mb-3">
-          <%= f.label :grant_amount, "助成額", class: "form-label" %>
+          <%= f.label :grant_amount, "助成額", class: "form-label" %><span class="text-danger"> *必須</span>
           <%= f.text_field :grant_amount, class: "form-control" %>
+            <% if @program.errors[:grant_amount].any? %>
+              <p class="text-danger"><%= @program.errors.full_messages_for(:grant_amount).join %></p>
+            <% end %>
         </div>
 
         <div class="mb-3">
-          <%= f.label :overview, "助成プログラム概要", class: "form-label" %>
+          <%= f.label :overview, "助成プログラム概要", class: "form-label" %><span class="text-danger"> *必須</span>
           <%= f.text_area :overview, class: "form-control", size: "30x10"  %>
+            <% if @program.errors[:overview].any? %>
+              <p class="text-danger"><%= @program.errors.full_messages_for(:overview).join %></p>
+            <% end %>
         </div>
 
         <div class="mb-3">
@@ -45,33 +60,51 @@
         </div>
 
         <div class="mb-3">
-          <%= f.label :determining_time, "助成決定時期", class: "form-label" %>
+          <%= f.label :determining_time, "助成決定時期", class: "form-label" %><span class="text-danger"> *必須</span>
           <%= f.text_field :determining_time, class: "form-control" %>
+            <% if @program.errors[:determining_time].any? %>
+              <p class="text-danger"><%= @program.errors.full_messages_for(:determining_time).join %></p>
+            <% end %>
         </div>
        
         <div class="mb-3">
-          <%= f.label :implementation_period, "助成事業実施機関", class: "form-label" %>
+          <%= f.label :implementation_period, "助成事業実施期間", class: "form-label" %><span class="text-danger"> *必須</span>
           <%= f.text_field :implementation_period, class: "form-control" %>
+            <% if @program.errors[:implementation_period].any? %>
+              <p class="text-danger"><%= @program.errors.full_messages_for(:implementation_period).join %></p>
+            <% end %>
         </div>
 
         <div class="mb-3">
-          <%= f.label :payment_method, "助成金支払方法", class: "form-label" %>
+          <%= f.label :payment_method, "助成金支払方法", class: "form-label" %><span class="text-danger"> *必須</span>
           <%= f.text_field :payment_method, class: "form-control" %>
+            <% if @program.errors[:payment_method].any? %>
+              <p class="text-danger"><%= @program.errors.full_messages_for(:payment_method).join %></p>
+            <% end %>
         </div>
 
         <div class="mb-3">
-          <%= f.label :selection_method, "選考方法", class: "form-label" %>
+          <%= f.label :selection_method, "選考方法", class: "form-label" %><span class="text-danger"> *必須</span>
           <%= f.text_field :selection_method, class: "form-control" %>
+            <% if @program.errors[:selection_method].any? %>
+              <p class="text-danger"><%= @program.errors.full_messages_for(:selection_method).join %></p>
+            <% end %>
         </div>
 
         <div class="mb-3">
-          <%= f.label :use, "助成金使用使途", class: "form-label" %>
+          <%= f.label :use, "助成金使用使途", class: "form-label" %><span class="text-danger"> *必須</span>
           <%= f.text_field :use, class: "form-control" %>
+            <% if @program.errors[:use].any? %>
+              <p class="text-danger"><%= @program.errors.full_messages_for(:use).join %></p>
+            <% end %>
         </div>
 
         <div class="mb-3">
-          <%= f.label :self_pay, "自己負担の要否", class: "form-label" %>
+          <%= f.label :self_pay, "自己負担の要否", class: "form-label" %><span class="text-danger"> *必須</span>
           <%= f.text_field :self_pay, class: "form-control" %>
+            <% if @program.errors[:self_pay].any? %>
+              <p class="text-danger"><%= @program.errors.full_messages_for(:self_pay).join %></p>
+            <% end %>
         </div>
 
         <div class="mb-3">
@@ -80,8 +113,11 @@
         </div>
 
          <div class="mb-3">
-          <%= f.label :message, "助成団体からのメッセージ", class: "form-label" %>
+          <%= f.label :message, "助成団体からのメッセージ", class: "form-label" %><span class="text-danger"> *必須</span>
           <%= f.text_area :message, class: "form-control", size: "30x5"  %>
+            <% if @program.errors[:message].any? %>
+              <p class="text-danger"><%= @program.errors.full_messages_for(:message).join %></p>
+            <% end %>
         </div>
 
         <div class="mb-3">
