@@ -1,5 +1,10 @@
-<p>Welcome <%= @name %>!</p>
+<p>SQOPE（スコープ）の助成団体登録ありがとうございます！</p>
 
-<p>You can confirm your account email through the link below:</p>
+<hr>
+
+<div>
+  <p>現在は【仮登録状態】です。</p>
+  <p>登録を完了するために以下の「助成団体アカウントの本登録」をクリックしてください</p>
+</div>
 
 <p><%= link_to '助成団体アカウントの本登録', controller: 'funders/confirmations', action: 'create', confirmation_token: @token %></p>
