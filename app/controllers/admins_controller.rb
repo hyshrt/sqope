@@ -7,15 +7,7 @@ class AdminsController < ApplicationController
   def new
   end
 
-  def create
-    # @admin = Admin.find_by(admin_name: params[:admin_name], password_digest: params[:password])
-      # if @admin
-      #   session[:admin_id] = @admin.id
-      #   redirect_to "https://njin-base.com"
-      # else
-      #   render action: "new"
-      # end
-    
+  def create 
     admin = Admin.find_by(admin_name: params[:admin_name])
     if admin && admin.authenticate(params[:password])
       session[:admin_id] = admin.id
@@ -26,6 +18,8 @@ class AdminsController < ApplicationController
   end
 
   def destroy
+    session[:admin_id] = nil
+    redirect_to admins_login_path
   end
 
   private
