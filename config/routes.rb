@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   
   root :to => "programs#index"
+  get 'admins/dashboard', to: "admins#index"
+  get 'admins/login', to: "admins#new"
+  post 'admins/login', to: "admins#create"
+  delete 'admins/logout', to: "admins#destroy"
   get 'funders/mypage', :to => 'funders#mypage'
   get 'funders/mypage/edit', :to => 'funders#edit'
   put 'funders/mypage', :to => 'funders#update'
