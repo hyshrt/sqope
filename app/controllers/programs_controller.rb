@@ -12,9 +12,20 @@ class ProgramsController < ApplicationController
   end
 
   def create
-    @program = Program.new(program_params.merge(program_state: 0))
-    @program.save
-    redirect_to program_path(@program)
+    release_and_status = program_params[:release_and_status]
+    if release_and_status == 0
+      @program = Program.new(program_params.merge(program_state: 0))
+    else
+      @program = Program.new(program_params.merge(program_state: 1, release_date: Date.today))
+    end
+    
+    if @program.save
+      redirect_to program_path(@program)
+    else
+      @program.valid?
+      @program.errors.full_messages
+      render :new 
+    end
   end
 
   def show
@@ -49,9 +60,9 @@ class ProgramsController < ApplicationController
   def update
     if @program.update(program_params)
       if @program.release_and_status == 1 && @program.program_state == 0
-        @program.update(program_state: 1)
-      else @program.release_and_status == 2
-        @program.update(program_state: 4)
+        @program.update(program_state: 1, release_date: Date.today)
+      elsif @program.release_and_status == 2
+        @program.update(program_state: 4, stop_date: Date.today)
       end
         redirect_to funders_mypage_programs_path
     else

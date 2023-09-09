@@ -11,7 +11,7 @@ class Program < ApplicationRecord
   has_many :users, through: :view_histories
   has_many :users, through: :interests
 
-  validates :funder_id, {presence: true}
+  validates :funder_id, :program_name, :start_datetime, :end_datetime, :grant_amount, :overview, :determining_time, :implementation_period, :payment_method, :selection_method, :use, :self_pay, :message ,presence: true
   mount_uploader :program_logo, ProgramlogoUploader
 
   def interested?(user)

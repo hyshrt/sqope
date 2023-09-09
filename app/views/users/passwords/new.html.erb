@@ -1,16 +1,26 @@
-<h2>Forgot your password?</h2>
-
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-  <%= render "users/shared/error_messages", resource: resource %>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+<div class="container">
+  <div class="row">
+    <div class="col-4 mx-auto padding-top-80">
+      <h3 class="border-bottom border-warning border-2 mb-5 pb-4 d-flex justify-content-center">パスワードをお忘れの方</h3>
+    </div>
   </div>
+</div>
 
-  <div class="actions">
-    <%= f.submit "Send me reset password instructions" %>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-5 text-center">
+      <p class="">登録済のメールアドレスを入力してください</p>
+      <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+        <div class="form-group row mb-3 justify-content-center">
+          <div class="col-md-7">
+            <%= f.email_field :email, placeholder: "メールアドレス", class: "form-control" %>
+          </div>
+        </div>
+        
+        <div class="actions">
+          <%= f.submit "パスワードをリセット", class: "btn btn-warning mt-3" %>
+        </div>
+      <% end %>
+    </div>
   </div>
-<% end %>
-
-<%= render "users/shared/links" %>
+</div>

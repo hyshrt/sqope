@@ -1,5 +1,10 @@
-<p>Welcome</p>
+<p>SQOPE（スコープ）のユーザー登録ありがとうございます！</p>
 
-<p>You can confirm your account email through the link below:</p>
+<hr>
+
+<div>
+  <p>現在は【仮登録状態】です。</p>
+  <p>ユーザー登録を完了するために以下の「アカウントの本登録」をクリックしてください</p>
+</div>
 
 <p><%= link_to 'アカウントの本登録', controller: 'users/confirmations', action: 'create', confirmation_token: @token %></p>
